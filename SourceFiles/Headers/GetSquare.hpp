@@ -3,5 +3,8 @@
 //
 #pragma once
 
-square* getSquare(unsigned char i_x, unsigned char i_y,
-                  std::vector<Board>& squares);
+#include "Board.hpp"
+
+Square *getSquare(unsigned char i_x, unsigned char i_y,
+                  std::vector<Square>& i_squares);
+  

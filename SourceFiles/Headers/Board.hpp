@@ -18,7 +18,7 @@ class Board
     std::random_device randomDevice;
 
     //Creating a board using vector of vectors
-    std::vector<Board> board;
+    std::vector<Square> squares;
 
 //initializing public functions
 public:
@@ -26,9 +26,9 @@ public:
 
     bool endEffect();
 
-    char detectGameOver();
+    char getGameOver();
 
-    unsigned short detectFlags();
+    unsigned short getFlags();
 
     //function responsible for showing our board by
     //rendering a window using SFML.
@@ -42,6 +42,6 @@ public:
     //function that enables the player to play again
     void restart();
 
-    void detectMouseState(unsigned char i_mouseState,
+    void setMouseState(unsigned char i_mouse_state,
                           unsigned char i_x, unsigned char i_y);
 };

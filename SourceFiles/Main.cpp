@@ -5,6 +5,7 @@
 #include <random>
 #include <SFML/Graphics.hpp>
 
+
 #include "Headers/BaseConfig.hpp"
 #include "Headers/CreateText.hpp"
 #include "Headers/Square.hpp"
@@ -26,7 +27,7 @@ int main()
     //represents a point in time.
     //stores a value indicating the time interval from the start of the Clock's epoch
     //to a certain point.
-    std::chrono::time_point<std::chrono::steady_clock> previous_time;
+    std::chrono::time_point<std::chrono::steady_clock> previousTime;
 
     //SFML to store the game events
     sf::Event event;
@@ -35,7 +36,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode( * col * resizeCam, resizeCam * (fontHeight + PixelBySquare * col)),
                             "Minesweeper", sf::Style::Close);
     //Resizing window
-    window.setView(sf::View(sf::FloatRect(0, 0, PixelBySquare * col, fontHeight + PixelBySquare * line)));
+    window.setView(sf::View(sf::FloatRect(0, 0, pixelBySquare * col, fontHeight + pixelBySquare * line)));
 
     //using SFML to reference a sprite class
     sf::Sprite Emoji;
@@ -54,7 +55,7 @@ int main()
     Board board;
 
     //Get the current time and store it in a variable using std lib
-    previousTime = std::chrono::steady_clock::now();
+    previousTime += std::chrono::steady_clock::now();
 
     while (1 == window.isOpen())
     {
@@ -70,16 +71,16 @@ int main()
         previousTime += std::chrono::microseconds(deltaTime);
 
         //while lag lasts longer than the current frame duration
-        while (FrameDuration <= lag)
+        while (frameDuration <= lag)
         {
             //We get the coordinates of the cell under the cursor
             unsigned char mouseCellX = std::clamp(static_cast<int>(floor(sf::Mouse::getPosition(window).x / static_cast<float>
-            (PixelBySquare * resizeCam))), 0, col - 1);
+            (pixelBySquare * resizeScreen))), 0, col - 1);
             unsigned char mouseCellY = std::clamp(static_cast<int>(floor(sf::Mouse::getPosition(window).y / static_cast<float>
-            (PixelBySquare * resizeCam))), 0, line - 1);
+            (pixelBySquare * resizeScreen))), 0, lines - 1);
 
 
-            lag -= FrameDuration;
+            lag -= frameDuration;
 
             //creating a switch case to manage user interactions/events and
             //assign adequate responses to each event type
@@ -138,7 +139,7 @@ int main()
                 emojiState = 1;
 
                 //We also change the mouse state of the square( let go )
-                board.detectMouseState(2, mouseCellX, mouseCellY);
+                board.setMouseState(2, mouseCellX, mouseCellY);
             }
                 //Otherwise
             else
@@ -146,17 +147,17 @@ int main()
                 //emoji stays in idle position
                 emojiState = 0;
 
-                board.detectMouseState(1, mouseCellX, mouseCellY);
+                board.setMouseState(1, mouseCellX, mouseCellY);
             }
 
             //If the game is lost
-            if (-1 == board.detectGameOver())
+            if (-1 == board.getGameOver())
             {
                 //sad emoji when a bomb is clicked
                 emojiState = 2;
             }
                 //If you won
-            else if (1 == board.detectGameOver())
+            else if (1 == board.getGameOver())
             {
                 //happy emoji is activated
                 emojiState = 3;
@@ -175,18 +176,18 @@ int main()
                 //to game status, winning or losing
                 if (1 == board.endEffect())
                 {
-                    if (1 == board.detectGameOver())
+                    if (1 == board.getGameOver())
                     {
-                        createText(1, static_cast<unsigned short>(round(0.5f * (pixelsBySquare * col - 8 * fontWidth))), static_cast<unsigned short>(round(0.5f * (pixelsBySquare * line - fontHeight))), "You won! :)", window);
+                        createText(1, static_cast<unsigned short>(round(0.5f * (pixelBySquare * col - 8 * fontWidth))), static_cast<unsigned short>(round(0.5f * (pixelsBySquare * line - fontHeight))), "You won! :)", window);
                     }
                     else
                     {
-                        createText(1, static_cast<unsigned short>(round(0.5f * (pixelsBySquare * col - 4 * fontWidth))), static_cast<unsigned short>(round(0.5f * (pixelsBySquare * line - 2 * fontHeight))), "GAME\nOVER :(", window);
+                        createText(1, static_cast<unsigned short>(round(0.5f * (pixelBySquare * col - 4 * fontWidth))), static_cast<unsigned short>(round(0.5f * (pixelsBySquare * line - 2 * fontHeight))), "GAME\nOVER :(", window);
                     }
                 }
 
                 //showing how many mines are left through text
-                createText(0, 0, pixelBySquare * line, "Mines left:" + std::to_string(MINES - board.detectFlags()), window);
+                createText(0, 0, pixelBySquare * lines, "Mines left:" + std::to_string(MINES - board.getFlags()), window);
 
                 //setting mechanism to choose the emoji's expression and
                 //the associated texture

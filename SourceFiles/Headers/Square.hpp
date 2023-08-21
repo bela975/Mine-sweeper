@@ -23,7 +23,7 @@ public:
     //identify what squares are open
     bool getOpen();
     //identify if a square is open
-    bool open(std::vector<Cell>& i_cells);
+    bool open(std::vector<Square>& squares);
     bool updateEffectTimer();
 
     unsigned char getEffectTimer();

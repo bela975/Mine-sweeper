@@ -10,5 +10,5 @@
 //establishing a pointer be able to navigate our board and look for specific squares
 Square* getSquare(unsigned char i_x, unsigned char i_y, std::vector<Square>& i_square)
 {
-    return &i_Square[i_x + col * i_y];
+    return &i_square[i_x + col * i_y];
 }

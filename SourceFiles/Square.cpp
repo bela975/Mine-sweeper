@@ -1,9 +1,7 @@
 //
 // Created by Isabela Spinelli on 15/08/2023.
 //
-//
-// Created by Isabela Spinelli on 15/08/2023.
-//
+
 #include <vector>
 
 //including our header archives using their addresses
@@ -66,7 +64,7 @@ bool Square::open(std::vector<Square>& i_square)
                     }
 
                     //opening all adjacent squares, since they are bomb free
-                    getSquare(a + x, b + y, i_squares)->open(i_squares);
+                    getSquare(a + x, b + y, i_square)->open(i_square);
                 }
             }
         }
@@ -134,9 +132,9 @@ void Square::countAdjacentMines(std::vector<Square>& i_squares)
                 }
 
                 //add a mine to the count in case one is present in adjacent position
-                if (1 == getSquare(a + x, b + y, i_squares)->gethasMine())
+                if (1 == getSquare(a + x, b + y, i_squares)->getHasMine())
                 {
-                    mines_around++;
+                    adjacentMines++;
                 }
             }
         }
@@ -146,9 +144,9 @@ void Square::countAdjacentMines(std::vector<Square>& i_squares)
 void Square::flag()
 {
     //establishing that an open square can't be flagged
-    if (0 == is_open)
+    if (0 == isOpen)
     {
-        !is_flagged;
+        !isFlagged;
     }
 }
 
@@ -157,16 +155,17 @@ void Square::reset()
     //Setting square related variables to 0
     isFlagged = 0;
     hasMine = 0;
-    isOpened= 0;
+    isOpen= 0;
     mouseState = 0;
     //except the effect
     effectTimer = effectDuration;
 
 }
 
-void Square::seteffectTimer(unsigned char i_effectTimer)
+void Square::setEffectTimer(unsigned char i_effectTimer)
 {
     effectTimer= i_effectTimer;
+
 }
 
 void Square::setMine()

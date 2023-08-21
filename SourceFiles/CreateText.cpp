@@ -6,7 +6,7 @@
 
 #include "Headers/CreateText.hpp"
 
-void createText(bool i_b, unsigned short i_x, unsigned short i_y,
+void createText(bool i_black, unsigned short i_x, unsigned short i_y,
                 const std::string& i_text, sf::RenderWindow& i_window)
 {
 
@@ -14,6 +14,7 @@ void createText(bool i_b, unsigned short i_x, unsigned short i_y,
     short character_y = i_y;
 
     unsigned char characterWidth;
+
 
     sf::Sprite characterSprite;
 
@@ -23,6 +24,7 @@ void createText(bool i_b, unsigned short i_x, unsigned short i_y,
     //calculating each character's width based on the font image size.
     //96 because there are 96 character in the image
     characterWidth = fontTexture.getSize().x / 96;
+
 
     characterSprite.setTexture(fontTexture);
 
@@ -47,7 +49,7 @@ void createText(bool i_b, unsigned short i_x, unsigned short i_y,
         //Change the position of the next character
         characterSprite.setPosition(character_x, character_y);
         //Pick the character from the font image
-        characterSprite.setTextureRect(sf::IntRect(character_width * (a - 32), 0, characterWidth, fontTexture.getSize().y));
+        characterSprite.setTextureRect(sf::IntRect(characterWidth * (a - 32), 0, characterWidth, fontTexture.getSize().y));
 
         //Increase the x-coordinate
         character_x += characterWidth;
