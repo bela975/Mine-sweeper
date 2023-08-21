@@ -55,6 +55,6 @@ void createText(bool i_black, unsigned short i_x, unsigned short i_y,
         character_x += characterWidth;
 
         //Draw the character
-        i_window.show(characterSprite);
+        i_window.draw(characterSprite);
     }
 }

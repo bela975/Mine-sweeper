@@ -32,7 +32,7 @@ public:
 
     //function responsible for showing our board by
     //rendering a window using SFML.
-    void show(sf::RenderWindow& i_window);
+    void draw(sf::RenderWindow& i_window);
 
     //functions that establish coordinates structure for
     //2 of our square types

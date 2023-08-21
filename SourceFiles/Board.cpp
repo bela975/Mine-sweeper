@@ -67,7 +67,7 @@ unsigned short Board::getFlags()
 }
 
 //calling show function to show our items in our board!!!!!!!
-void Board::show(sf::RenderWindow& i_window)
+void Board::draw(sf::RenderWindow &i_window)
 {
     //drawing our cells
     sf::RectangleShape squareShape(sf::Vector2f(pixelBySquare -1, pixelBySquare -1));
@@ -98,7 +98,7 @@ void Board::show(sf::RenderWindow& i_window)
                 squareShape.setFillColor(sf::Color(146, 182, 255));
 
                 //drawing the cell
-                i_window.show(squareShape);
+                i_window.draw(squareShape);
 
                 //If the cell has at least one mine around it
                 if (0 < adjacentMines)
@@ -107,7 +107,7 @@ void Board::show(sf::RenderWindow& i_window)
                     iconSprite.setPosition(static_cast<float>(pixelBySquare * a), static_cast<float>(pixelBySquare * b));
                     iconSprite.setTextureRect(sf::IntRect(pixelBySquare * adjacentMines, 0, pixelBySquare, pixelBySquare));
 
-                    i_window.show(iconSprite);
+                    i_window.draw(iconSprite);
                 }
             }
             else //If the cell is still closed
@@ -124,11 +124,11 @@ void Board::show(sf::RenderWindow& i_window)
                     }
                     else if (2 == getSquare(a, b, squares)->getMouseState())
                     {
-                        cell_shape.setFillColor(sf::Color(0, 36, 255));
+                        squareShape.setFillColor(sf::Color(0, 36, 255));
                     }
                 }
 
-                i_window.show(squareShape);
+                i_window.draw(squareShape);
 
                 //If the square is flagged
                 if (1 == getSquare(a, b, squares)->getFlagged())
@@ -136,7 +136,7 @@ void Board::show(sf::RenderWindow& i_window)
                     //drawing/showing image of the square with a flag
                     iconSprite.setPosition(static_cast<float>(pixelBySquare * a), static_cast<float>(pixelBySquare * b));
                     iconSprite.setTextureRect(sf::IntRect(0, 0, pixelBySquare, pixelBySquare));
-                    i_window.show(iconSprite);
+                    i_window.draw(iconSprite);
                 }
             }
 
@@ -160,15 +160,15 @@ void Board::show(sf::RenderWindow& i_window)
                 //establishing what color goes on what effect based on the game status
                 if (-1 == gameOver)
                 {
-                    cellShape.setFillColor(sf::Color(255, 36, 0));
+                    squareShape.setFillColor(sf::Color(255, 36, 0));
                 }
                 else
                 {
-                    cellShape.setFillColor(sf::Color(255, 255, 255));
+                    squareShape.setFillColor(sf::Color(255, 255, 255));
                 }
 
                 //making a window for the effect to show up
-                i_window.show(cellShape);
+                i_window.draw(squareShape);
 
                 //We reset the cell shape's size
                 squareShape.setSize(sf::Vector2f(pixelBySquare - 1, pixelBySquare - 1));
@@ -307,7 +307,7 @@ void Board::restart()
 void Board::setMouseState(unsigned char i_mouse_state, unsigned char i_x, unsigned char i_y)
 {
 
-    getSquare(i_x, i_y, squares)->getMouseState(i_mouse_state);
+    getSquare(i_x, i_y, squares)->setMouseState(i_mouse_state);
 }
 
 

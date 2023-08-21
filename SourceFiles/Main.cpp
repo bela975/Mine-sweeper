@@ -33,10 +33,10 @@ int main()
     sf::Event event;
 
     //using SFML to render our game window
-    sf::RenderWindow window(sf::VideoMode( * col * resizeCam, resizeCam * (fontHeight + PixelBySquare * col)),
+    sf::RenderWindow window(sf::VideoMode(pixelBySquare * col * resizeScreen, resizeScreen * (fontHeight + pixelBySquare * col)),
                             "Minesweeper", sf::Style::Close);
     //Resizing window
-    window.setView(sf::View(sf::FloatRect(0, 0, pixelBySquare * col, fontHeight + pixelBySquare * line)));
+    window.setView(sf::View(sf::FloatRect(0, 0, pixelBySquare * col, fontHeight + pixelBySquare * lines)));
 
     //using SFML to reference a sprite class
     sf::Sprite Emoji;
@@ -48,14 +48,14 @@ int main()
     EmojiTexture.loadFromFile("Resources/Images/Emoji.png");
 
     //placing emoji in the bottom right corner
-    Emoji.setPosition(static_cast<float>(pixelBySquare * col - EmojiTexture.getSize().y), pixelBySquare * line);
+    Emoji.setPosition(static_cast<float>(pixelBySquare * col - EmojiTexture.getSize().y), pixelBySquare * lines);
     Emoji.setTexture(EmojiTexture);
 
     //Board object called "board"
     Board board;
 
     //Get the current time and store it in a variable using std lib
-    previousTime += std::chrono::steady_clock::now();
+    previousTime = std::chrono::steady_clock::now();
 
     while (1 == window.isOpen())
     {
@@ -170,7 +170,7 @@ int main()
                 window.clear();
 
                 //Then we create and show the game field
-                board.show(window);
+                board.draw(window);
 
                 //if the end effect is activated, display message corresponding
                 //to game status, winning or losing
@@ -178,11 +178,11 @@ int main()
                 {
                     if (1 == board.getGameOver())
                     {
-                        createText(1, static_cast<unsigned short>(round(0.5f * (pixelBySquare * col - 8 * fontWidth))), static_cast<unsigned short>(round(0.5f * (pixelsBySquare * line - fontHeight))), "You won! :)", window);
+                        createText(1, static_cast<unsigned short>(round(0.5f * (pixelBySquare * col - 8 * fontWidth))), static_cast<unsigned short>(round(0.5f * (pixelBySquare * lines - fontHeight))), "You won! :)", window);
                     }
                     else
                     {
-                        createText(1, static_cast<unsigned short>(round(0.5f * (pixelBySquare * col - 4 * fontWidth))), static_cast<unsigned short>(round(0.5f * (pixelsBySquare * line - 2 * fontHeight))), "GAME\nOVER :(", window);
+                        createText(1, static_cast<unsigned short>(round(0.5f * (pixelBySquare * col - 4 * fontWidth))), static_cast<unsigned short>(round(0.5f * (pixelBySquare * lines - 2 * fontHeight))), "GAME\nOVER :(", window);
                     }
                 }
 
@@ -194,7 +194,7 @@ int main()
                 Emoji.setTextureRect(sf::IntRect(emojiState * EmojiTexture.getSize().y, 0, EmojiTexture.getSize().y, EmojiTexture.getSize().y));
 
                 //Finally displaying alexander
-                window.show(Emoji);
+                window.draw(Emoji);
                 window.display();
             }
         }
