@@ -14,7 +14,7 @@ constexpr unsigned char col = 8;
 
 constexpr unsigned char resizeScreen = 8;
 
-constexpr unsigned char frameDuration = 16667;
+constexpr unsigned char frameDuration = 166;
 
 constexpr unsigned char effectDuration = 16;
 

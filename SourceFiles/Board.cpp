@@ -2,8 +2,8 @@
 // Created by Isabela Spinelli on 18/08/2023.
 //
 #include <random>
-
 #include <SFML/Graphics.hpp>
+
 
 #include "Headers/Square.hpp"
 #include "Headers/Board.hpp"
@@ -16,7 +16,7 @@ Board ::Board() :
         gameOver(1),
         //calling our random number generator, making it so
         //that this can happen properly in all devices
-        randomEngine(randomDevice())
+        random_engine(random_device())
 {
     //making the matrix, aka our game-board
     //adding lines and columns until our board is at desired size
@@ -179,22 +179,22 @@ void Board::draw(sf::RenderWindow &i_window)
                     //starting the effect timer for the adjacent Squares
                     if (0 <= a - 1 && effectDuration == getSquare(a - 1, b, squares)->getEffectTimer())
                     {
-                        getSquare(a - 1, b, squares)->setEffectTimer(static_cast<unsigned char>(effectDurationDistribution(randomEngine)));
+                        getSquare(a - 1, b, squares)->setEffectTimer(static_cast<unsigned char>(effectDurationDistribution(random_engine)));
                     }
 
                     if (0 <= b - 1 && effectDuration == getSquare(a, b - 1, squares)->getEffectTimer())
                     {
-                        getSquare(a, b - 1, squares)->setEffectTimer(static_cast<unsigned char>(effectDurationDistribution(randomEngine)));
+                        getSquare(a, b - 1, squares)->setEffectTimer(static_cast<unsigned char>(effectDurationDistribution(random_engine)));
                     }
 
                     if (col > 1 + a && effectDuration == getSquare(1 + a, b, squares)->getEffectTimer())
                     {
-                        getSquare(1 + a, b, squares)->setEffectTimer(static_cast<unsigned char>(effectDurationDistribution(randomEngine)));
+                        getSquare(1 + a, b, squares)->setEffectTimer(static_cast<unsigned char>(effectDurationDistribution(random_engine)));
                     }
 
                     if (lines > 1 + b && effectDuration == getSquare(a, 1 + b, squares)->getEffectTimer())
                     {
-                        getSquare(a, 1 + b, squares)->setEffectTimer(static_cast<unsigned char>(effectDurationDistribution(randomEngine)));
+                        getSquare(a, 1 + b, squares)->setEffectTimer(static_cast<unsigned char>(effectDurationDistribution(random_engine)));
                     }
                 }
             }
@@ -226,8 +226,8 @@ void Board::openSquare(unsigned char i_x, unsigned char i_y)
         //Then we generate mines
         for (unsigned short a = 0; a < MINES; a++)
         {
-            unsigned char mine_x = static_cast<unsigned char>(x_distribution(randomEngine));
-            unsigned char mine_y = static_cast<unsigned char>(y_distribution(randomEngine));
+            unsigned char mine_x = static_cast<unsigned char>(x_distribution(random_engine));
+            unsigned char mine_y = static_cast<unsigned char>(y_distribution(random_engine));
 
             //checking if the Square the player tried to open is or not mined
             //and if it isn't, we set a mine somewhere else

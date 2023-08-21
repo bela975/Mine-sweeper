@@ -10,12 +10,12 @@ class Board
     char gameOver;
 
     //setting our random number generator from the c++ standard library
-    std::default_random_engine randomEngine;
+    std::default_random_engine random_engine;
 
     //setting a random number generator from c++ std lib
     //for if we don't have a device that can generate them
     //differently for each time a piece of data is entered
-    std::random_device randomDevice;
+    std::random_device random_device;
 
     //Creating a board using vector of vectors
     std::vector<Square> squares;
